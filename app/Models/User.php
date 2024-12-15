@@ -5,14 +5,15 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable 
+// remove implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
-
+	// remove implements MustVerifyEmail
     /**
      * The attributes that are mass assignable.
      *
@@ -52,5 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
 	public function expenses()
 	{
 		return $this->hasMany(Expense::class);
+	}
+
+	public function sendEmailVerificationNotification()
+	{
+		// Do nothing, or you can log, handle it differently
 	}
 }
