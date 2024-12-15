@@ -3,17 +3,17 @@ FROM php:8.3-fpm
 
 # Step 2: Install System Dependencies
 RUN apt-get update -y && apt-get install -y \
-	git \
-	curl \
-	libpng-dev \
-	libonig-dev \
-	libxml2-dev \
-	zip \
-	unzip \
-	npm \
-	&& docker-php-ext-install pdo_mysql mbstring zip \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    npm \
+    && docker-php-ext-install pdo_mysql mbstring zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 
 # Step 3: Install Composer
