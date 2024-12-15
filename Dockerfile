@@ -11,10 +11,13 @@ RUN apt-get update -y && apt-get install -y \
     zip \
     unzip \
     npm \
+    libzip-dev \
+    && echo "Installation of packages succeeded" \
     && docker-php-ext-install pdo_mysql mbstring zip \
+    && echo "PHP extensions installation succeeded" \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
+    && rm -rf /var/lib/apt/lists/* \
+    && echo "Cleanup succeeded"
 
 # Step 3: Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
