@@ -5,6 +5,7 @@ FROM php:8.2-cli
 RUN apt-get update && apt-get install -y \
 	zip unzip curl \
 	libpng-dev libjpeg-dev libfreetype6-dev \
+	nodejs npm \
 	&& docker-php-ext-configure gd \
 	&& docker-php-ext-install gd pdo_mysql
 
@@ -19,6 +20,9 @@ COPY . .
 
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
+
+# Install npm dependencies and build assets using Vite
+RUN npm install && npm run build
 
 # Set permissions for storage and bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
