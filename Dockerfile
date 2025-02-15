@@ -1,4 +1,4 @@
-# Use official PHP image with extensions for Laravel
+# Use official PHP CLI image (not FPM)
 FROM php:8.2-cli
 
 # Install system dependencies
@@ -23,8 +23,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Set permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Allow Render to set the port dynamically
-ENV PORT 8000
+# Ensure PORT is always set, default to 8000
+ENV PORT=${PORT:-8000}
 
-# Start Laravel server (no Nginx or PHP-FPM)
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
+# Fix: Convert PORT to a valid number before passing it
+CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"]
