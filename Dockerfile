@@ -27,4 +27,5 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 ENV PORT=${PORT:-8000}
 
 # Fix: Convert PORT to a valid number before passing it
-CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"]
+CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"]
+
